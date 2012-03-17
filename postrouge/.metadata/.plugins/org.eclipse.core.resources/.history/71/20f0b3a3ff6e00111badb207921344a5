@@ -1,0 +1,23 @@
+package main.java.Model.Items;
+
+import main.java.actions.AbstractAction;
+import main.java.actors.DisplayObject;
+import main.java.actors.ActorObjects.AbstractActorObject;
+import main.java.util.PlayerSessionUtil.ItemTarget;
+
+public class Ammo extends AbstractItem{
+	
+	public Ammo(){
+		name = "MedKit";
+		description ="Heals you 10 hp";
+		icon = new DisplayObject(0x000000, 0xee0000, "m");
+		type = ItemTarget.SELF;
+	}
+
+	@Override
+	public AbstractAction use(AbstractActorObject user) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

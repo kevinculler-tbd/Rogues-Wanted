@@ -1,0 +1,23 @@
+package main.java.Model.Items;
+
+import main.java.actions.AbstractAction;
+import main.java.actors.DisplayObject;
+import main.java.actors.ActorObjects.AbstractActorObject;
+import main.java.util.PlayerSessionUtil.ItemType;
+
+public class Pistol extends AbstractItem{
+	
+	public Pistol(){
+		name = "Pistol";
+		description = "Maker or the Bang";
+		icon = new DisplayObject(0x000000, 0x00ee00, "p");
+		type = ItemType.ACTOR;
+	}
+
+	@Override
+	public AbstractAction use(AbstractActorObject user) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

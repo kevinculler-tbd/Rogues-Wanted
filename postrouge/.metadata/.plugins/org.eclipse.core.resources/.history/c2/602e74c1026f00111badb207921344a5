@@ -1,0 +1,33 @@
+package main.java.Model.Items;
+
+import java.sql.Time;
+import java.util.Date;
+import java.util.Random;
+
+import main.java.actions.AbstractAction;
+import main.java.actors.DisplayObject;
+import main.java.actors.ActorObjects.AbstractActorObject;
+import main.java.util.PlayerSessionUtil.ItemTarget;
+
+public class PistolAmmo extends AbstractItem{
+	
+	
+	
+	public PistolAmmo(){
+		name = "Pistol Ammo";
+		description =" bullets for a pistol";
+		icon = new DisplayObject(0x000000, 0xee0000, "m");
+		type = ItemTarget.ITEM;
+		Random gen = new Random(123456);
+		value = gen.nextInt(12)+1;
+	}
+
+	@Override
+	public AbstractAction use(AbstractActorObject target) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	
+
+}

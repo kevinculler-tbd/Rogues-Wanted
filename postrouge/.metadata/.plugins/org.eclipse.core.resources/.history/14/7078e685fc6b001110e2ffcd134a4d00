@@ -1,0 +1,68 @@
+package main.java.util;
+
+import main.java.Model.LevelMap;
+import main.java.Model.Player;
+import main.java.actors.DisplayObject;
+
+public class PlayerSessionUtil {
+	private Player player;
+	private static PlayerSessionUtil playerSession;
+	
+	private LevelMap lobbyMap;
+	
+	
+	public static PlayerSessionUtil getPlayerSession() {
+		if(playerSession == null){
+			playerSession = new PlayerSessionUtil();
+		}
+		
+		return playerSession;
+	}
+	
+	public PlayerSessionUtil(){
+		makeLobby();
+	}
+
+	public Player getPlayer() {
+		return player;
+	}
+
+	public void setPlayer(Player player) {
+		this.player = player;
+	}
+
+	public LevelMap getLobbyMap() {
+		return lobbyMap;
+	}
+
+	public void setLobbyMap(LevelMap lobbyMap) {
+		this.lobbyMap = lobbyMap;
+	}
+	
+	private void makeLobby(){
+		int size = DisplayUtil.SCREEN_HEIGHT*DisplayUtil.SCREEN_WIDTH;
+		DisplayObject[] tMap = new DisplayObject[size];
+		
+		for(int y = 0; y<DisplayUtil.SCREEN_HEIGHT; ++y){
+			
+			for(int x = 0; x<DisplayUtil.SCREEN_WIDTH; ++x){
+				if(y==0||y ==DisplayUtil.SCREEN_HEIGHT-1 ){
+					tMap[y*DisplayUtil.SCREEN_HEIGHT+x] = new DisplayObject(0x000000, 0xeeeeee, "-");
+				}
+				if(y!=0 && y !=DisplayUtil.SCREEN_HEIGHT-1 ){
+					if(x==0 || x==DisplayUtil.SCREEN_WIDTH-1){
+						tMap[y*DisplayUtil.SCREEN_HEIGHT+x] = new DisplayObject(0x000000, 0xeeeeee, "|");
+					}else{
+						tMap[y*DisplayUtil.SCREEN_HEIGHT+x] = new DisplayObject(0x000000, 0xeeeeee, ".");
+					}
+				}
+			}
+		}
+	}
+
+	
+	
+	
+	
+	
+}

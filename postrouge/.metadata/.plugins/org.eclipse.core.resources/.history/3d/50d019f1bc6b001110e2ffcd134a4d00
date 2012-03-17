@@ -1,0 +1,54 @@
+package main.java.stateEngines;
+
+import com.googlecode.blacken.terminal.BlackenKeys;
+
+import main.java.actors.DisplayObject;
+import main.java.util.TerminalUtil;
+import main.java.util.InputUtil.InputState;
+
+public abstract class BaseEngine {
+
+	public DisplayObject[] getDisplayMap(int x, int y, int w, int h){
+		
+		int size = w*h;
+		
+		DisplayObject[] ret = new DisplayObject[size];
+		for(int i = 0; i<size; ++i){
+				ret[i] = new DisplayObject(0x2500ff, 0xeeeeee, ".");
+		}
+		return ret;
+	}
+	
+	public String getOutputText(){
+		return "output";
+	}
+	
+	public abstract BaseEngine takeStep();
+	
+	public BaseEngine getInput(){
+		 InputState state = InputState.NONE;
+		 int ch = TerminalUtil.getTerm().getch();
+        switch(ch) {
+        case BlackenKeys.KEY_UP:
+       	 state = InputState.UP;
+        	break;
+        case BlackenKeys.KEY_DOWN:
+       	 state = InputState.DOWN;
+        	break;
+        case BlackenKeys.KEY_LEFT:
+       	 state = InputState.LEFT;
+        	break;
+        case BlackenKeys.KEY_RIGHT:
+       	 state = InputState.RIGHT;
+        	break;
+        case BlackenKeys.KEY_F01:
+       	 state = InputState.QUIT;
+        	break;
+        default:
+//       	 TerminalUtil.getTerm().puts(BlackenKeys.toString(ch)+", "+ch);
+//       	 TerminalUtil.getTerm().puts("\n"); //$NON-NLS-1$
+        	break;
+        }
+		return state;
+	}
+}

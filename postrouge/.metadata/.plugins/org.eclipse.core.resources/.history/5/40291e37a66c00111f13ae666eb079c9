@@ -1,0 +1,8 @@
+package main.java.actions;
+
+public interface IMovable {
+	
+	public void moveX(int velX);
+	public void
+
+}

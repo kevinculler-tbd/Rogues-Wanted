@@ -1,0 +1,59 @@
+package main.java.stateEngines;
+
+import com.googlecode.blacken.terminal.BlackenKeys;
+
+import main.java.actors.DisplayObject;
+import main.java.stateEngines.QuitEngine.QuitInputState;
+
+public class InventoryEngine extends AbstractEngine{
+	
+	enum InventoryInputState{BACK,NONE}
+	public InventoryEngine(AbstractEngine lstEng) {
+		super(lstEng);
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public DisplayObject[][] getDisplayMap() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getOutputText() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public AbstractEngine takeStep() {
+		InventoryInputState state = doInput();
+		AbstractEngine ret = this;
+		switch(state){
+		case BACK:
+			ret = lastEngine;
+			break;
+		}
+		
+		return ret;
+	}
+	
+	private InventoryInputState doInput(){
+		int ch = getInput();
+		InventoryInputState state = InventoryInputState.NONE;
+		 switch(ch) {
+         case BlackenKeys.KEY_ENTER:
+        	 state = InventoryInputState.BACK;
+         	break;
+         case BlackenKeys.KEY_ESCAPE:
+        	 state = InventoryInputState.BACK;
+         	break;
+         }
+		 
+		 return state;
+	}
+
+}
+
+
+}

@@ -1,0 +1,80 @@
+package main.java.actions;
+
+import main.java.Model.Items.Equipment.AbstractEquipment;
+import main.java.Model.Items.Equipment.Weapons.AbstractWeapon;
+import main.java.actors.DisplayObject;
+import main.java.actors.ActorObjects.AbstractActorObject;
+import main.java.actors.ActorObjects.ActorCharacter;
+import main.java.actors.LevelObjects.AbstractMapObject;
+import main.java.util.PlayerSessionUtil;
+
+public class AttackAction extends AbstractAction {
+	private ActorCharacter character;
+	private AbstractWeapon weapon;
+	public AttackAction(ActorCharacter character){
+		this.character = character;
+		for (AbstractEquipment eq:character.getEquipedItems()){
+			if(eq instanceof AbstractWeapon){
+				weapon = (AbstractWeapon)eq;
+				break;
+			}
+		}
+		if(weapon == null){
+			weapon = character.getDefaultWeapon();
+		}
+		
+	}
+
+	@Override
+	public String doAction(AbstractActorObject actor, AbstractMapObject target) {
+		if(target!=null && PlayerSessionUtil.distanceSqr(target.getX(), target.getY(), character.getX(), character.getY())<=(weapon.getRange()*weapon.getRange())){
+			//XD move that dude
+			actor.getEnvironment().getPossessions().remove(actor);
+			target.addPossession(actor);
+			actor.setEnvironment(target);
+			actor.setX(target.getX());
+			actor.setY(target.getY());
+			actor.setToken(new DisplayObject(actor.getToken().getBackground(), actor.getToken().getForeground(), target.getDisplayObject().getCharacter()));
+			
+			String targetDiscription = null;
+				
+			for ( AbstractActorObject possession: target.getPossessions()){
+				if(possession instanceof ActorCharacter && PlayerSessionUtil.distanceSqr(target.getX(), target.getY(), character.getX(), character.getY())<=character.getVisionSqr()){
+					targetDiscription = "Attack "+possession.getName()+" with your "+weapon.getName();
+				}
+			}
+			return targetDiscription;
+		}
+		return null;
+	}
+
+	@Override
+	public String doConfirm(AbstractActorObject actor, AbstractMapObject target) {
+		if(target!=null && PlayerSessionUtil.distanceSqr(target.getX(), target.getY(), character.getX(), character.getY())<=(weapon.getRange()*weapon.getRange())){
+			//XD move that dude
+			actor.getEnvironment().getPossessions().remove(actor);
+			target.addPossession(actor);
+			actor.setEnvironment(target);
+			actor.setX(target.getX());
+			actor.setY(target.getY());
+			actor.setToken(new DisplayObject(actor.getToken().getBackground(), actor.getToken().getForeground(), target.getDisplayObject().getCharacter()));
+			
+			String targetDiscription = null;
+				
+			for ( AbstractActorObject possession: target.getPossessions()){
+				if(possession instanceof ActorCharacter && PlayerSessionUtil.distanceSqr(target.getX(), target.getY(), character.getX(), character.getY())<=(weapon.getRange()*weapon.getRange())){
+					if(possession == character){
+						targetDiscription = "You can't attack yourself!";
+					}else{
+						targetDiscription = weapon.attack(character, (ActorCharacter)possession);
+					}
+				}
+			}
+			if(targetDiscription == null){
+				targetDiscription ="There is nothing to attack!";
+			}
+			return targetDiscription;
+		}
+		return null;
+	}
+}

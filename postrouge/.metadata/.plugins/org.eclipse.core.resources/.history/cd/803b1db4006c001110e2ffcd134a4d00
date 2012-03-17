@@ -1,0 +1,9 @@
+package main.java.actors.ActorObjects;
+
+public class AbstractActorObject {
+
+	int x;
+	int y;
+	char token;
+	
+}

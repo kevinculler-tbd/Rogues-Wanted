@@ -1,0 +1,9 @@
+package main.java;
+
+import com.googlecode.blacken.terminal.TerminalInterface;
+
+public class BlackenConnector {
+
+    protected static TerminalInterface term;
+	
+}

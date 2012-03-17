@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 32
+/svn/!svn/ver/13/trunk/.settings
+END
+org.eclipse.jdt.core.prefs
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/5/trunk/.settings/org.eclipse.jdt.core.prefs
+END
+com.google.gdt.eclipse.core.prefs
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/7/trunk/.settings/com.google.gdt.eclipse.core.prefs
+END
+org.eclipse.core.resources.prefs
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/5/trunk/.settings/org.eclipse.core.resources.prefs
+END
+org.eclipse.jdt.ui.prefs
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/13/trunk/.settings/org.eclipse.jdt.ui.prefs
+END
+com.google.appengine.eclipse.core.prefs
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/7/trunk/.settings/com.google.appengine.eclipse.core.prefs
+END
+org.eclipse.core.runtime.prefs
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/5/trunk/.settings/org.eclipse.core.runtime.prefs
+END

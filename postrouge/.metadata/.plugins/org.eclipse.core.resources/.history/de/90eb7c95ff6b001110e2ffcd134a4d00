@@ -1,0 +1,5 @@
+package main.java.actors.LevelObjects;
+
+public class VerticalWall {
+
+}

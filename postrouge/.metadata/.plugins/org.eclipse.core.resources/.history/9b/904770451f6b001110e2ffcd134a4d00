@@ -1,0 +1,22 @@
+package main.java.stateEngines;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import main.java.actors.DisplayObject;
+
+public class BaseEngine {
+
+	public DisplayObject[] getDisplayMap(int x, int y, int w, int h){
+		
+		int size = w*h;
+		
+		DisplayObject[] ret = new DisplayObject[size];
+		ret[i] = new DisplayObject(0xff0000, 0xeeffee, ".");
+		return ret;
+	}
+	
+	public Boolean takeStep(){
+		return false;
+	}
+}

@@ -1,0 +1,11 @@
+package main.java.stateEngines;
+
+public class QuitEngine extends BaseEngine{
+
+	@Override
+	public BaseEngine takeStep() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

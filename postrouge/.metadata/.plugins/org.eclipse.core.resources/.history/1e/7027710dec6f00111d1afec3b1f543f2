@@ -1,0 +1,77 @@
+package main.java.actors.ActorObjects;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import main.java.Model.ActorClasses.AbstractActorClass;
+import main.java.Model.Items.AbstractItem;
+import main.java.Model.Items.Equipment.AbstractEquipment;
+import main.java.Model.Items.Equipment.Weapons.AbstractWeapon;
+import main.java.Model.Items.Equipment.Weapons.Fists;
+import main.java.actors.DisplayObject;
+import main.java.util.PlayerSessionUtil;
+
+public class Player extends ActorCharacter {
+
+
+
+
+
+	
+	
+	public Player(AbstractActorClass aC){
+		setActorClass(aC);
+		hp = 10;
+		defaultForegroundColor = 0xffeeeeee;
+		token = new DisplayObject(0xff000000, defaultForegroundColor, "@");
+		properties.put(PlayerSessionUtil.Property.BLOCKING, 1);
+		discription = "hey, that's me";
+		inventory = new ArrayList<AbstractItem>();
+		setVision(5);
+		
+		name = "umm, me";
+		defaultWeapon = new Fists();
+		
+		for (AbstractItem item: aC.getInitItems()){
+			inventory.add(item);
+		}
+	}
+	
+	public String getStatus(){
+		String ret = "Name: "+name + "\n";
+		ret = ret +"Class: "+actorClass.getClassDisplayName()+"\n";
+		ret = ret +"HP: "+hp +"\n";
+		ret = ret +"AC: "+ac +"\n";
+		ret = ret +"STR: "+str +"\n";
+		ret = ret +"DEX: "+dex +"\n";
+		ret = ret +"CON: "+con +"\n";
+		ret = ret +"INT: "+intel +"\n";
+		ret = ret +"WIS: "+wis +"\n";
+		ret = ret +"CHA: "+cha +"\n";
+		
+		ret= ret+"\nEquiped Items: \n";
+		for(AbstractEquipment item: equipedItems){
+			ret = ret+item.getName()+"\n";
+		}
+		
+		AbstractWeapon weapon = null;
+		for (AbstractEquipment eq:getEquipedItems()){
+			if(eq instanceof AbstractWeapon){
+				weapon = (AbstractWeapon)eq;
+				break;
+			}
+		}
+		if(weapon == null){
+			weapon = getDefaultWeapon();
+		}
+		
+		return ret;
+	}
+	
+	
+	
+
+
+
+	
+}

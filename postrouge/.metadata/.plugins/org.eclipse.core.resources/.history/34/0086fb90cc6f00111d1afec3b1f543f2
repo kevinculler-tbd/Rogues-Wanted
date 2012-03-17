@@ -1,0 +1,17 @@
+package main.java.actors.ActorObjects;
+
+import main.java.Model.ActorClasses.VelociraptorClass;
+
+public class Velociraptor extends ActorCharacter {
+	
+	int vision;
+	int visionSqr;
+	
+	public Velociraptor(){
+		setActorClass(new VelociraptorClass());
+		vision = 5;
+		visionSqr = vision*vision;
+		
+	}
+
+}

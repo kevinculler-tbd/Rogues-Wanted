@@ -1,0 +1,50 @@
+package main.java.actors.ActorObjects;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import main.java.Model.ActorClasses.AbstractActorClass;
+import main.java.Model.Items.AbstractItem;
+
+public class ActorCharacter extends AbstractActorObject{
+	
+	protected AbstractActorClass actorClass;
+	protected int hp;
+	protected int ac;
+	protected List<AbstractItem> equipment;
+
+	public ActorCharacter(){
+		equipment = new ArrayList<AbstractItem>();
+	}
+	public AbstractActorClass getActorClass() {
+		return actorClass;
+	}
+
+	public void setActorClass(AbstractActorClass actorClass) {
+		this.actorClass = actorClass;
+	}
+	
+	public int getHp() {
+		return hp;
+	}
+	public void setHp(int hp) {
+		this.hp = hp;
+	}
+	
+	public int getAc() {
+		return ac;
+	}
+
+	public void setAc(int ac) {
+		this.ac = ac;
+	}
+	
+	public List<AbstractItem> getEquipment(){
+		return equipment;
+	}
+	
+	public 
+	
+	
+
+}

@@ -1,0 +1,224 @@
+package main.java.actors.ActorObjects;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import main.java.Model.ActorClasses.AbstractActorClass;
+import main.java.Model.Items.Equipment.AbstractEquipment;
+import main.java.actors.DisplayObject;
+import main.java.actors.LevelObjects.AbstractMapObject;
+import main.java.util.DisplayUtil;
+import main.java.util.PlayerSessionUtil;
+
+public class ActorCharacter extends AbstractActorObject{
+	
+	protected AbstractActorClass actorClass;
+	protected int maxHP = 0;
+	protected int hp = 0;
+	protected int ac = 0;
+	
+	protected int str = 10;
+	protected int dex = 10;
+	protected int con = 10;
+	
+	protected int intel = 10;
+	protected int wis = 10;
+	protected int cha = 10;
+	
+	protected int strMod = 10;
+	protected int dexMod = 10;
+	protected int conMod = 10;
+	
+	protected int intelMod = 10;
+	protected int wisMod = 10;
+	protected int chaMod = 10;
+	
+	protected int experience = 0;
+	protected int level = 1;
+	
+	int vision;
+	int visionSqr;
+	
+
+	protected List<AbstractEquipment> equipedItems;
+
+	public ActorCharacter(){
+		equipedItems = new ArrayList<AbstractEquipment>();
+	}
+	public AbstractActorClass getActorClass() {
+		return actorClass;
+	}
+
+	public void setActorClass(AbstractActorClass actorClass) {
+		this.actorClass = actorClass;
+		
+		setStr(actorClass.getInitStr());
+		setDex(actorClass.getInitDex());
+		setCon(actorClass.getInitCon());
+		setIntel(actorClass.getInitInt());
+		setWis(actorClass.getInitWis());
+		setCha(actorClass.getInitCha());
+	}
+	
+	public int getHp() {
+		return hp;
+	}
+	public void setHp(int hp) {
+		this.hp = hp;
+	}
+	
+	public int getAc() {
+		return ac;
+	}
+
+	public void setAc(int ac) {
+		this.ac = ac;
+	}
+	
+	public int getStr() {
+		return str;
+	}
+	public int getDex() {
+		return dex;
+	}
+	public int getCon() {
+		return con;
+	}
+	public int getIntel() {
+		return intel;
+	}
+	public int getWis() {
+		return wis;
+	}
+	public int getCha() {
+		return cha;
+	}
+	
+	public void setStr(int str) {
+		strMod = (str - 10)/2;
+		this.str = str;
+	}
+	public void setDex(int dex) {
+		dexMod = (dex-10)/2;
+		this.dex = dex;
+	}
+	public void setCon(int con) {
+		conMod = (con-10)/2;
+		this.con = con;
+	}
+	public void setIntel(int intel) {
+		intelMod = (intel-10)/2;
+		this.intel = intel;
+	}
+	public void setWis(int wis) {
+		wisMod = (wis-10)/2;
+		this.wis = wis;
+	}
+	public void setCha(int cha) {
+		chaMod = (cha-10)/2;
+		this.cha = cha;
+	}
+	
+	public int getLevel() {
+		return level;
+	}
+	public void setLevel(int level) {
+		this.level = level;
+	}
+	
+	public int getMaxHP() {
+		return maxHP;
+	}
+	public void setMaxHP(int maxHP) {
+		this.maxHP = maxHP;
+	}
+	public int getExperience() {
+		return experience;
+	}
+	public void setExperience(int experience) {
+		this.experience = experience;
+	}
+
+	
+	public List<AbstractEquipment> getEquipedItems(){
+		return equipedItems;
+	}
+	
+	public void addEquipedItems(AbstractEquipment eq){
+		equipedItems.add(eq);
+	}
+	
+	public void removeEquipedItems(AbstractEquipment eq){
+		equipedItems.remove(eq);
+	}
+	
+	public int getStrMod() {
+		return strMod;
+	}
+	public int getDexMod() {
+		return dexMod;
+	}
+	public int getConMod() {
+		return conMod;
+	}
+	public int getIntelMod() {
+		return intelMod;
+	}
+	public int getWisMod() {
+		return wisMod;
+	}
+	public int getChaMod() {
+		return chaMod;
+	}
+
+	public int getVision() {
+		return vision;
+	}
+	public void setVision(int vision) {
+		visionSqr = vision*vision;
+		this.vision = vision;
+	}
+	public int getVisionSqr() {
+		return visionSqr;
+	}
+	public void setVisionSqr(int visionSqr) {
+		this.visionSqr = visionSqr;
+	}
+	
+	public DisplayObject[][] getCharacterVision(){
+		AbstractMapObject[][] map = PlayerSessionUtil.getPlayerSession().getCurrentMap().getMap();
+		
+		DisplayObject[][] drawMap = new DisplayObject[DisplayUtil.SCREEN_HEIGHT][DisplayUtil.SCREEN_WIDTH];
+		int orgX = getX()-(DisplayUtil.SCREEN_WIDTH/2);
+		int orgY = getY()-(DisplayUtil.SCREEN_HEIGHT/2);
+		
+		
+		for(int y = 0; y<DisplayUtil.SCREEN_HEIGHT; ++y){
+			for(int x = 0; x<DisplayUtil.SCREEN_WIDTH; ++x){
+				if(orgX+x>=0 &&
+				   orgY+y>=0 &&
+				   orgX+x<PlayerSessionUtil.getPlayerSession().getCurrentMap().getMaxX() &&
+				   orgY+y<PlayerSessionUtil.getPlayerSession().getCurrentMap().getMaxY()){
+					
+					if(PlayerSessionUtil.distanceSqr(getX(), getY(), orgX+x , orgY+y)<=visionSqr){
+						 List<AbstractActorObject> tilePossessions = map[orgY+y][orgX+x].getPossessions();
+						 for (AbstractActorObject possession: tilePossessions){
+							 drawMap[y][x] = possession.getToken();
+							 if(possession.getProperties().get(PlayerSessionUtil.Property.BLOCKING)!=null && possession.getProperties().get(PlayerSessionUtil.Property.BLOCKING)>0){
+								 break;
+							 }
+						 }
+					}
+					 if(drawMap[y][x] == null){
+						 DisplayObject tObj = map[orgY+y][orgX+x].getDisplayObject();
+						 drawMap[y][x] = new DisplayObject(tObj.getBackground(), tObj.getForeground()+0xff000000, tObj.getCharacter());
+					 }
+					
+				}
+			}
+		}
+		return drawMap;
+	}
+	
+
+}

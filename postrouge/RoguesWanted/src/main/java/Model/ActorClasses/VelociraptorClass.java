@@ -1,0 +1,32 @@
+package main.java.Model.ActorClasses;
+
+import java.util.ArrayList;
+
+import main.java.Model.Items.AbstractItem;
+import main.java.Model.Skills.AbstractSkill;
+
+public class VelociraptorClass  extends AbstractActorClass{
+	
+	public VelociraptorClass(){
+		//fill out anything necessary here
+		
+		classDisplayName = "Velociraptor";
+		classShortName = "VRptr";
+		
+		initStr = 20;
+		initDex = 18;
+		initCon = 16;
+		
+		initInt = 14;
+		initWis = 10;
+		initCha = 14;
+		
+		hitDie = 8;
+		
+		initItems = new ArrayList<AbstractItem>();
+		
+		
+		initSkills = new ArrayList<AbstractSkill>();
+	}
+
+}

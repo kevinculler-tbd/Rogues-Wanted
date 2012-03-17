@@ -1,0 +1,35 @@
+package main.java.Model;
+
+import main.java.actors.LevelObjects.AbstractMapObject;
+
+public class LevelMap {
+	
+	private AbstractMapObject[] map;
+	
+	int maxX;
+	int maxY;
+
+	public int getMaxX() {
+		return maxX;
+	}
+
+	public void setMaxX(int maxX) {
+		this.maxX = maxX;
+	}
+	
+	public int getMaxY() {
+		return maxY;
+	}
+
+	public void setMaxY(int maxY) {
+		this.maxY = maxY;
+	}
+	
+	public AbstractMapObject[] getMap() {
+		return map;
+	}
+
+	public void setMap(AbstractMapObject[] map) {
+		this.map = map;
+	}
+}

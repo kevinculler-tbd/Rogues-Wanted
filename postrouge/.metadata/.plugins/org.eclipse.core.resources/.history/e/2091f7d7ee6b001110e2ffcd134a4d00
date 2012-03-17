@@ -1,0 +1,9 @@
+package main.java.Model.ActorClasses;
+
+public class HumanCivActorClass extends AbstractActorClass{
+	
+	public HumanCivActorClass(){
+		
+	}
+
+}

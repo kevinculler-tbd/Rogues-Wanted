@@ -1,0 +1,38 @@
+package main.java.stateEngines;
+
+import main.java.actors.DisplayObject;
+
+public class HelpEngine extends AbstractEngine{
+
+	public HelpEngine(AbstractEngine lstEng) {
+		super(lstEng);
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public DisplayObject[] getDisplayMap(int x, int y, int w, int h) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getOutputText() {
+		String output;
+		output ="Terminal Interface\n"+ 
+        "Command keys include:\n"+ 
+        "Use the arrow keys to move\n"+
+        "F1  - to quit\n"+
+        "H  - for help\n"+
+        "something else\n"+
+        "another thing\n"+
+        "Esc - go back\n";
+		return output;
+	}
+
+	@Override
+	public AbstractEngine takeStep() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

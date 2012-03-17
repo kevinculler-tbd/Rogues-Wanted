@@ -1,0 +1,91 @@
+package main.java.actors.LevelObjects;
+
+import java.util.List;
+import java.util.Map;
+
+import main.java.actors.DisplayObject;
+import main.java.actors.ActorObjects.AbstractActorObject;
+import main.java.util.PlayerSessionUtil.Property;
+
+public abstract class AbstractMapObject {
+	protected int x;
+	protected int y;
+	protected DisplayObject displayObject;
+	protected List<AbstractActorObject> possessions;
+	protected Map<Property, Integer> properties;
+	protected int id;
+	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public abstract AbstractActorObject effectActor(AbstractActorObject act);
+
+	public DisplayObject getDisplayObject() {
+		return displayObject;
+	}
+
+	public void setDisplayObject(DisplayObject displayObject) {
+		this.displayObject = displayObject;
+	}
+
+	public int getX() {
+		return x;
+	}
+
+	public void setX(int x) {
+		this.x = x;
+	}
+
+	public int getY() {
+		return y;
+	}
+
+	public void setY(int y) {
+		this.y = y;
+	}
+
+	public List<AbstractActorObject> getPossessions() {
+		return possessions;
+	}
+	
+	@Override
+	public boolean equals(Object obj){
+		if (this == obj){
+		       return true;
+		}
+	    if (obj == null){
+	        return false;
+	    }
+	    if (getClass() != obj.getClass()){
+	        return false;
+	    }
+	    final AbstractMapObject other = (AbstractMapObject)obj;
+	    if(other.getId() == id){
+	    	return true;
+	    }
+		return false;
+	}
+	
+	@Override
+	public int hashCode() {
+	    return id;
+	}
+	
+	public void addPossession(AbstractActorObject obj){
+		if(!possessions.contains(obj)){
+			possessions.add(obj);
+		}
+	}
+	public boolean removePossession(AbstractActorObject obj){
+		return possessions.remove(obj);
+	}
+	
+	public Map<Property, Integer> getProperties() {
+		return properties;
+	}
+}

@@ -1,0 +1,57 @@
+package main.java.stateEngines;
+
+import main.java.actors.DisplayObject;
+
+import com.googlecode.blacken.terminal.BlackenKeys;
+
+public class IntroEngine extends AbstractEngine{
+	
+	private enum IntroState{QUIT,START, NONE};
+
+	@Override
+	public AbstractEngine takeStep() {
+		IntroState state = doInput();
+		AbstractEngine ret = this;
+		switch(state){
+		case QUIT:
+			ret = new QuitEngine();
+			break;
+		case START:
+			ret = new StartEngine();
+			break;
+		}
+		
+		return ret;
+	}
+	@Override
+	public DisplayObject[] getDisplayMap(int x, int y, int w, int h){
+		
+		int size = w*h;
+		
+		DisplayObject[] ret = new DisplayObject[size];
+		for(int i = 0; i<size; ++i){
+				ret[i] = new DisplayObject(0x2500ff, 0xeeeeee, ".");
+		}
+		return ret;
+	}
+	@Override
+	public String getOutputText() {
+		
+		return "Hello Intro";
+	}
+	
+	private IntroState doInput(){
+		int ch = getInput();
+		IntroState state = IntroState.NONE;
+		 switch(ch) {
+         case BlackenKeys.KEY_F01:
+        	 state = IntroState.QUIT;
+         	break;
+         case BlackenKeys.KEY_ENTER:
+        	 state = IntroState.START;
+         	break;
+         }
+		 
+		 return state;
+	}
+}

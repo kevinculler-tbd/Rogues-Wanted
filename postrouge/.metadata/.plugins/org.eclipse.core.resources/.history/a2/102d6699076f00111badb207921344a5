@@ -1,0 +1,14 @@
+package main.java.Model.Items.Equipment;
+
+import main.java.Model.Items.AbstractItem;
+import main.java.actors.ActorObjects.AbstractActorObject;
+
+public class AbstractEquipment extends AbstractItem{
+
+	@Override
+	public String use(AbstractActorObject target) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

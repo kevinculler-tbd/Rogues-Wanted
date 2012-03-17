@@ -1,0 +1,51 @@
+package main.java.actors.ActorObjects;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import main.java.Model.ActorClasses.AbstractActorClass;
+import main.java.Model.Items.AbstractItem;
+import main.java.actors.DisplayObject;
+import main.java.util.PlayerSessionUtil;
+
+public class Player extends Character {
+
+
+	private int hp;
+
+
+	
+	
+	public Player(AbstractActorClass aC){
+		setActorClass(aC);
+		hp = 10;
+		token = new DisplayObject(0x000000, 0xeeeeee, "@");
+		properties.put(PlayerSessionUtil.Property.BLOCKING, 1);
+		discription = "hey, that's me";
+		inventory = new ArrayList<AbstractItem>();
+		
+		name = "umm, me";
+		
+		for (AbstractItem item: aC.getInitItems()){
+			inventory.add(item);
+		}
+	}
+	
+	public int getHp() {
+		return hp;
+	}
+	public void setHp(int hp) {
+		this.hp = hp;
+	}
+
+	public AbstractActorClass getActorClass() {
+		return actorClass;
+	}
+
+	public void setActorClass(AbstractActorClass actorClass) {
+		this.actorClass = actorClass;
+	}
+
+
+	
+}

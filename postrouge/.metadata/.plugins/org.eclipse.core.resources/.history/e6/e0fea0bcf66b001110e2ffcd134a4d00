@@ -1,0 +1,33 @@
+package main.java.stateEngines;
+
+import main.java.actors.DisplayObject;
+import main.java.util.PlayerSessionUtil;
+
+public class LobbyEngine extends AbstractEngine {
+
+	public LobbyEngine(AbstractEngine lstEng) {
+		super(lstEng);
+		PlayerSessionUtil.getPlayerSession().getPlayer().setX(5);
+		PlayerSessionUtil.getPlayerSession().getPlayer().setY(5);
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public DisplayObject[] getDisplayMap(int x, int y, int w, int h) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getOutputText() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public AbstractEngine takeStep() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

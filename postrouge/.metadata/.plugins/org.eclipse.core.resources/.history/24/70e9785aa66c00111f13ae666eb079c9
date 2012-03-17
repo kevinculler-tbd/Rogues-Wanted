@@ -1,0 +1,30 @@
+package main.java.actors.ActorObjects;
+
+import main.java.actors.DisplayObject;
+
+public class AbstractActorObject {
+
+	protected int x;
+	protected int y;
+	protected DisplayObject token;
+	
+	public int getX() {
+		return x;
+	}
+	public void setX(int x) {
+		this.x = x;
+	}
+	public int getY() {
+		return y;
+	}
+	public void setY(int y) {
+		this.y = y;
+	}
+	public DisplayObject getToken() {
+		return token;
+	}
+	public void setToken(DisplayObject token) {
+		this.token = token;
+	}
+	
+}

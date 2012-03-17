@@ -1,0 +1,48 @@
+package main.java.stateEngines;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import main.java.Model.Items.AbstractItem;
+import main.java.actors.DisplayObject;
+import main.java.actors.ActorObjects.AbstractActorObject;
+import main.java.actors.LevelObjects.AbstractMapObject;
+
+public class SelectItemEngine extends AbstractEngine {
+
+	private List<AbstractItem> items;
+	public SelectItemEngine(AbstractEngine lstEng) {
+		super(lstEng);
+		// TODO Auto-generated constructor stub
+	}
+	
+	public SelectItemEngine(AbstractEngine lstEng, AbstractMapObject target) {
+		super(lstEng);
+		items = new ArrayList<AbstractItem>();
+		for(AbstractActorObject actor: target.getPossessions()){
+			if(actor.getClass() instanceof ItemIcon.class){
+				
+			}
+		}
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public DisplayObject[][] getDisplayMap() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getOutputText() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public AbstractEngine takeStep() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

@@ -1,0 +1,5 @@
+package main.java.actors.ActorObjects;
+
+public class Character {
+
+}

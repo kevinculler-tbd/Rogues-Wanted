@@ -1,0 +1,5 @@
+package main.java.ActorObjects.actors;
+
+public class AbstractActorObject {
+
+}

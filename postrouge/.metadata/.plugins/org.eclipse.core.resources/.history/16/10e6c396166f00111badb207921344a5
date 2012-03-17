@@ -1,0 +1,85 @@
+package main.java.stateEngines;
+
+import main.java.Model.Items.AbstractItem;
+import main.java.actors.DisplayObject;
+import main.java.actors.ActorObjects.ItemIcon;
+import main.java.actors.ActorObjects.Player;
+import main.java.stateEngines.SelectItemEngine.SelectItemInputState;
+import main.java.util.PlayerSessionUtil;
+
+import com.googlecode.blacken.terminal.BlackenKeys;
+
+public class UseEngine extends AbstractEngine{
+	
+	enum UseItemInputState{QUIT,BACK,SELECTION,NONE}
+	char input;
+	public UseEngine(AbstractEngine lstEng) {
+		super(lstEng);
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public DisplayObject[][] getDisplayMap() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getOutputText() {
+		Player p = PlayerSessionUtil.getPlayerSession().getPlayer();
+		if(p.getInventory().size() == 0){
+			return "You have nothing in your inventory!";
+		}
+		String ret = "What do you want to use/equip/unequip?\n";
+		for(AbstractItem item:p.getInventory()){
+			ret= ret+item.getSelectionKey()+". "+item.getName()+" - "+item.getDescription()+"\n";
+		}
+		return ret;
+	}
+
+	@Override
+	public AbstractEngine takeStep() {
+		UseItemInputState state = doInput();
+		AbstractEngine ret = this;
+		switch(state){
+		case QUIT:
+			ret = new QuitEngine(this);
+			break;
+		case BACK:
+			ret = lastEngine;
+			break;
+		case SELECTION:
+//			for(ItemIcon item:items){
+//				if(input == item.getItem().getSelectionKey()){
+//					lastEngine.setActionMessage(itemSelected(item));
+//					ret = lastEngine;
+//					break;
+//				}
+//			}
+			break;
+		}
+		
+		return ret;
+	}
+	
+	private UseItemInputState doInput(){
+		int ch = getInput();
+		UseItemInputState state = UseItemInputState.NONE;
+		 switch(ch) {
+         case BlackenKeys.KEY_F01:
+        	 state = UseItemInputState.QUIT;
+         	break;
+         case BlackenKeys.KEY_ESCAPE:
+        	 state = UseItemInputState.BACK;
+         	break;
+         }
+		 if(ch > 64&& ch<123)
+		 {
+			 state = UseItemInputState.SELECTION;
+			 input = (char)ch;
+		 }
+		 
+		 return state;
+	}
+
+}

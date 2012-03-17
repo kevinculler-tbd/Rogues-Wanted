@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/24/trunk/src/test/java/com/googlecode/blacken/colors
+END
+TestColorHelper.java
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/!svn/ver/24/trunk/src/test/java/com/googlecode/blacken/colors/TestColorHelper.java
+END
+TestColorPalette.java
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/!svn/ver/17/trunk/src/test/java/com/googlecode/blacken/colors/TestColorPalette.java
+END
+TestColorNames.java
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/!svn/ver/13/trunk/src/test/java/com/googlecode/blacken/colors/TestColorNames.java
+END

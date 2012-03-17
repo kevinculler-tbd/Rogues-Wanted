@@ -1,0 +1,30 @@
+package main.java.Model.Items;
+
+import main.java.actions.AbstractAction;
+import main.java.actors.DisplayObject;
+import main.java.actors.ActorObjects.AbstractActorObject;
+import main.java.util.PlayerSessionUtil;
+import main.java.util.PlayerSessionUtil.ItemTarget;
+
+public class PistolAmmo extends AbstractItem{
+	
+	
+	
+	public PistolAmmo(){
+		name = "Pistol Ammo";
+		description =" bullets for a pistol";
+		icon = new DisplayObject(0x000000, 0xee0000, "m");
+		type = ItemTarget.ITEM;
+	
+		value = PlayerSessionUtil.getPlayerSession().randInt(12)+1;
+	}
+
+	@Override
+	public AbstractAction use(AbstractActorObject target) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	
+
+}

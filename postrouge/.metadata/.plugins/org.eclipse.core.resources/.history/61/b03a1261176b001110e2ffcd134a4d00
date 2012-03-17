@@ -1,0 +1,10 @@
+package main.java.stateEngines;
+
+public class BaseEngine {
+
+	
+	
+	public Boolean takeStep(){
+		return false;
+	}
+}

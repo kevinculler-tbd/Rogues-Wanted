@@ -1,0 +1,36 @@
+package main.java.actors.LevelObjects;
+
+import main.java.actors.DisplayObject;
+import main.java.actors.ActorObjects.AbstractActorObject;
+
+public abstract class AbstractMapObject {
+	protected int x;
+	protected int y;
+	protected DisplayObject displayObject;
+	
+	public abstract AbstractActorObject effectActor(AbstractActorObject act);
+
+	public DisplayObject getDisplayObject() {
+		return displayObject;
+	}
+
+	public void setDisplayObject(DisplayObject displayObject) {
+		this.displayObject = displayObject;
+	}
+
+	public int getX() {
+		return x;
+	}
+
+	public void setX(int x) {
+		this.x = x;
+	}
+
+	public int getY() {
+		return y;
+	}
+
+	public void setY(int y) {
+		this.y = y;
+	}
+}

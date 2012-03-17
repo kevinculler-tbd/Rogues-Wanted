@@ -1,0 +1,33 @@
+package main.java.actors.ActorObjects;
+
+import main.java.Model.ActorClasses.AbstractActorClass;
+import main.java.actors.DisplayObject;
+
+public class Player extends AbstractActorObject {
+
+
+	private int hp;
+	private AbstractActorClass actorClass;
+	
+	public Player(AbstractActorClass aC){
+		setActorClass(aC);
+		hp = 10;
+		token = new DisplayObject(0x000000, 0xeeeeee, "@");
+	}
+	
+	public int getHp() {
+		return hp;
+	}
+	public void setHp(int hp) {
+		this.hp = hp;
+	}
+
+	public AbstractActorClass getActorClass() {
+		return actorClass;
+	}
+
+	public void setActorClass(AbstractActorClass actorClass) {
+		this.actorClass = actorClass;
+	}
+	
+}

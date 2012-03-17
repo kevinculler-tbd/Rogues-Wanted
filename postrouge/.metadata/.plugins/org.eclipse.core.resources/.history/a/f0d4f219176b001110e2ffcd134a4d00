@@ -1,0 +1,26 @@
+package main.java.actors;
+
+public class DisplayObject {
+	private int background;
+	private int forground;
+	private int character;
+	
+	public int getBackground() {
+		return background;
+	}
+	public void setBackground(int background) {
+		this.background = background;
+	}
+	public int getForground() {
+		return forground;
+	}
+	public void setForground(int forground) {
+		this.forground = forground;
+	}
+	public int getCharacter() {
+		return character;
+	}
+	public void setCharacter(int character) {
+		this.character = character;
+	}
+}

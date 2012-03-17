@@ -1,0 +1,18 @@
+package main.java.Model.Items;
+
+import main.java.actions.AbstractAction;
+import main.java.actors.ActorObjects.AbstractActorObject;
+
+public class Pistol extends AbstractItem{
+	
+	public Pistol(){
+		description = "Pistol - Maker or the Bang";
+	}
+
+	@Override
+	public AbstractAction use(AbstractActorObject user) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

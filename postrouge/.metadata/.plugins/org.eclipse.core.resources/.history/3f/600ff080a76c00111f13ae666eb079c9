@@ -1,0 +1,16 @@
+package main.java.Model;
+
+import main.java.actors.LevelObjects.AbstractMapObject;
+
+public class LevelMap {
+	
+	private AbstractMapObject[] map;
+
+	public AbstractMapObject[] getMap() {
+		return map;
+	}
+
+	public void setMap(AbstractMapObject[] map) {
+		this.map = map;
+	}
+}

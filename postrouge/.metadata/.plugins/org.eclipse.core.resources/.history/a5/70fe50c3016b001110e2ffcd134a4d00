@@ -1,0 +1,23 @@
+package main.java;
+
+public class Main {
+	
+	public static void main(String[] args) {
+		init();
+		loop();
+		quit();
+	}
+	
+	private static void init(){
+		
+	}
+	
+	private static void loop(){
+		
+	}
+	
+	private static void quit(){
+		
+	}
+
+}

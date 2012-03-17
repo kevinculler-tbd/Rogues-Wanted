@@ -1,0 +1,20 @@
+package main.java.actors.ActorObjects;
+
+import main.java.Model.Items.AbstractItem;
+import main.java.actors.DisplayObject;
+
+public class ItemIcon extends AbstractActorObject{
+	
+	private AbstractItem item;
+	
+	public ItemIcon(AbstractItem i){
+		item = i;
+		token.setCharacter(item.getIcon());
+	}
+
+	@Override
+	public String getDiscription() {
+		return item.getDescription();
+	}
+
+}

@@ -1,0 +1,24 @@
+package main.java.actors.ActorObjects;
+
+import main.java.Model.ActorClasses.VelociraptorClass;
+import main.java.util.PlayerSessionUtil;
+
+public class Velociraptor extends ActorCharacter {
+	
+	int vision;
+	int visionSqr;
+	
+	public Velociraptor(int l){
+		setActorClass(new VelociraptorClass());
+		vision = 5;
+		visionSqr = vision*vision;
+		level = l;
+		experience = actorClass.getHitDie()*level;
+		for (int i = 0; i<level; ++i){
+			maxHP = maxHP+PlayerSessionUtil.getPlayerSession().randInt(actorClass.getHitDie())+1+con;
+		}
+		
+		
+	}
+
+}

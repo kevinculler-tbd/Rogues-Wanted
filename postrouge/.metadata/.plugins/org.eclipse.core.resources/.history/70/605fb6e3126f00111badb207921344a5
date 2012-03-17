@@ -1,0 +1,116 @@
+package main.java.stateEngines;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import main.java.Model.Items.AbstractItem;
+import main.java.actors.DisplayObject;
+import main.java.actors.ActorObjects.AbstractActorObject;
+import main.java.actors.ActorObjects.ItemIcon;
+import main.java.actors.ActorObjects.Player;
+import main.java.actors.LevelObjects.AbstractMapObject;
+import main.java.util.PlayerSessionUtil;
+
+import com.googlecode.blacken.terminal.BlackenKeys;
+
+public class SelectItemEngine extends AbstractEngine {
+
+	enum SelectItemInputState{QUIT,BACK,SELECTION,NONE}
+	private List<ItemIcon> items;
+	char input;
+	private AbstractMapObject mapTarget;
+	public SelectItemEngine(AbstractEngine lstEng) {
+		super(lstEng);
+		// TODO Auto-generated constructor stub
+	}
+	
+	public SelectItemEngine(AbstractEngine lstEng, AbstractMapObject target) {
+		super(lstEng);
+		mapTarget = target;
+		items = new ArrayList<ItemIcon>();
+		char currentChar = 'A';
+		for(AbstractActorObject actor: target.getPossessions()){
+			if(actor instanceof ItemIcon){
+				ItemIcon tItem =((ItemIcon)actor);
+				tItem.getItem().setSelectionKey(currentChar);
+				++currentChar;
+				items.add(tItem);
+			}
+		}
+	}
+
+	@Override
+	public DisplayObject[][] getDisplayMap() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getOutputText() {
+		String ret = "Select an item: \n";
+		for (ItemIcon item:items){
+			ret = ret + item.getItem().getSelectionKey()+". "+item.getItem().getName()+" - "+item.getItem().getDescription()+"\n";
+		}
+		return ret;
+	}
+
+	@Override
+	public AbstractEngine takeStep() {
+		SelectItemInputState state = doInput();
+		AbstractEngine ret = this;
+		switch(state){
+		case QUIT:
+			ret = new QuitEngine(this);
+			break;
+		case BACK:
+			ret = lastEngine;
+			break;
+		case SELECTION:
+			for(ItemIcon item:items){
+				if(input == item.getItem().getSelectionKey()){
+					itemSelected(item);
+					ret = lastEngine;
+					break;
+				}
+			}
+			break;
+		}
+		
+		return ret;
+	}
+	
+	private SelectItemInputState doInput(){
+		int ch = getInput();
+		SelectItemInputState state = SelectItemInputState.NONE;
+		 switch(ch) {
+         case BlackenKeys.KEY_F01:
+        	 state = SelectItemInputState.QUIT;
+         	break;
+         case BlackenKeys.KEY_ESCAPE:
+        	 state = SelectItemInputState.BACK;
+         	break;
+         }
+		 
+		 if(ch > 64&& ch<123)
+		 {
+			 state = SelectItemInputState.SELECTION;
+			 input = (char)ch;
+		 }
+		 
+		 return state;
+	}
+	
+	public String itemSelected(ItemIcon item){
+		Player p = PlayerSessionUtil.getPlayerSession().getPlayer();
+		if(p.getInventory().size()<=58){
+			item.getItem().setSelectionKey((char)(p.getInventory().size()+64));
+			p.addInventoryItem(item.getItem());
+			mapTarget.removePossession(item);
+			return "You picked up the "+item.getItem().getName();
+		}
+		
+		
+		return "Your inventory is full";
+	}
+
+}

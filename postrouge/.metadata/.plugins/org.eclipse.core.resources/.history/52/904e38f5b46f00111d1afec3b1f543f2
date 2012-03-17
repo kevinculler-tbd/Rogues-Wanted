@@ -1,0 +1,30 @@
+package main.java.stateEngines;
+
+import main.java.actors.DisplayObject;
+
+public class StatusEngine extends AbstractEngine{
+
+	public StatusEngine(AbstractEngine lstEng) {
+		super(lstEng);
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public DisplayObject[][] getDisplayMap() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getOutputText() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public AbstractEngine takeStep() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

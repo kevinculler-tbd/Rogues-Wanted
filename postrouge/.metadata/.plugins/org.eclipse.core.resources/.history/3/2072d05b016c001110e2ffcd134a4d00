@@ -1,0 +1,18 @@
+package main.java.actors.LevelObjects;
+
+import main.java.actors.ActorObjects.AbstractActorObject;
+
+public class VerticalWall extends AbstractMapObject {
+	
+	public VerticalWall(int xPos, int yPos){
+		x=xPos;
+		y=yPos;
+	}
+
+	@Override
+	public AbstractActorObject effectActor(AbstractActorObject act) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

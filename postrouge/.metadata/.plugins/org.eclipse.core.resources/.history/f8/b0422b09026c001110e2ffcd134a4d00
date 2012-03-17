@@ -1,0 +1,16 @@
+package main.java.Model;
+
+import main.java.actors.DisplayObject;
+
+public class LevelMap {
+	
+	private DisplayObject[] map;
+
+	public DisplayObject[] getMap() {
+		return map;
+	}
+
+	public void setMap(DisplayObject[] map) {
+		this.map = map;
+	}
+}

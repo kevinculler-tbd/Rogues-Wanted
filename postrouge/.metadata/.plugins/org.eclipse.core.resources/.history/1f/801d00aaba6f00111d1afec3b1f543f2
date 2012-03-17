@@ -1,0 +1,45 @@
+package main.java.actors.ActorObjects;
+
+import java.util.ArrayList;
+
+import main.java.Model.ActorClasses.AbstractActorClass;
+import main.java.Model.Items.AbstractItem;
+import main.java.actors.DisplayObject;
+import main.java.util.PlayerSessionUtil;
+
+public class Player extends ActorCharacter {
+
+
+
+
+
+	
+	
+	public Player(AbstractActorClass aC){
+		setActorClass(aC);
+		hp = 10;
+		defaultForegroundColor = 0xeeeeee;
+		token = new DisplayObject(0x000000, defaultForegroundColor, "@");
+		properties.put(PlayerSessionUtil.Property.BLOCKING, 1);
+		discription = "hey, that's me";
+		inventory = new ArrayList<AbstractItem>();
+		
+		name = "umm, me";
+		
+		for (AbstractItem item: aC.getInitItems()){
+			inventory.add(item);
+		}
+	}
+	
+	public String getStatus(){
+		String ret = "Name: "+name + "\n";
+		
+		
+		return ret;
+	}
+	
+
+
+
+	
+}

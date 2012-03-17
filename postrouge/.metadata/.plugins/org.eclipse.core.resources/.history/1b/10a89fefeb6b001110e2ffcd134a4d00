@@ -1,0 +1,22 @@
+package main.java.Model.ActorClasses;
+
+import java.util.List;
+
+import main.java.Model.Items.AbstractItem;
+import main.java.Model.Skills.AbstractSkill;
+
+public class AbstractActorClass {
+
+	protected final int initStr = 10;
+	protected final int initDex = 10;
+	protected final int initCon = 10;
+	
+	protected final int initInt = 10;
+	protected final int initWis = 10;
+	protected final int initCha = 10;
+	
+	protected final int hitDie = 6;
+	
+	protected List<AbstractSkill> initSkills;
+	protected List<AbstractItem> initItems;
+}

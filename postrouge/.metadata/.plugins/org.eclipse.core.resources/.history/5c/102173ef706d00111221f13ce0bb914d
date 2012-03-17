@@ -1,0 +1,5 @@
+package main.java.Events;
+
+public class MouseEvent {
+
+}

@@ -1,0 +1,159 @@
+package main.java.util;
+
+import java.util.Date;
+import java.util.List;
+import java.util.Random;
+
+import main.java.Model.LevelMap;
+import main.java.Model.Items.PistolAmmo;
+import main.java.Model.Items.Equipment.Jacket;
+import main.java.Model.Items.Equipment.Weapons.Pistol;
+import main.java.actors.ActorObjects.ActorCharacter;
+import main.java.actors.ActorObjects.ItemIcon;
+import main.java.actors.ActorObjects.Player;
+import main.java.actors.ActorObjects.Velociraptor;
+import main.java.actors.LevelObjects.AbstractMapObject;
+import main.java.actors.LevelObjects.FloorTile;
+import main.java.actors.LevelObjects.HorizontalWall;
+import main.java.actors.LevelObjects.VerticalWall;
+import main.java.exceptions.ItemInitException;
+
+public class PlayerSessionUtil {
+	public enum Property{BLOCKING,ENTANGLING,FIRE,ICE,WATER,INVISIBLE}
+	public enum ItemTarget{SELF,ACTOR,ITEM};
+	public enum EquipmentSlot{HEAD,CHEST,WEP,SHIELD,BOTHHANDS,LEGS,FEET};
+	
+	private Player player;
+	private static PlayerSessionUtil playerSession;
+	
+	private LevelMap lobbyMap;
+	private LevelMap currentMap;
+	
+	private static int nextId;
+	
+	private Random gen;
+	
+	
+	public static PlayerSessionUtil getPlayerSession() {
+		if(playerSession == null){
+			playerSession = new PlayerSessionUtil();
+		}
+		
+		return playerSession;
+	}
+	
+	public PlayerSessionUtil(){
+		gen = new Random((new Date().getTime()));
+		nextId = 0;
+	}
+	
+	public static int getNextActorId(){
+		return ++nextId;
+	}
+
+	public Player getPlayer() {
+		return player;
+	}
+
+	public void setPlayer(Player player) {
+		this.player = player;
+	}
+
+	public LevelMap getLobbyMap() {
+		return lobbyMap;
+	}
+
+	public void setLobbyMap(LevelMap lobbyMap) {
+		this.lobbyMap = lobbyMap;
+	}
+	
+	public void makeLobby(){
+		lobbyMap = new LevelMap();
+		lobbyMap.setMaxX(DisplayUtil.SCREEN_WIDTH*2);
+		lobbyMap.setMaxY(DisplayUtil.SCREEN_HEIGHT*2);
+
+		AbstractMapObject[][] tMap = new AbstractMapObject[lobbyMap.getMaxY()][lobbyMap.getMaxX()];
+		
+		for(int y = 0; y<lobbyMap.getMaxY(); ++y){
+			
+			for(int x = 0; x<lobbyMap.getMaxX(); ++x){
+				if(y==0||y == lobbyMap.getMaxY()-1 ){
+					tMap[y][x] = new HorizontalWall(x,y);
+				}else{
+					if(x==0 || x==lobbyMap.getMaxX()-1){
+						tMap[y][x] = new VerticalWall(x, y);
+					}else{
+						tMap[y][x] = new FloorTile(x, y);
+					}
+				}
+			}
+		}
+		
+		try{
+		ItemIcon item = new ItemIcon(new Pistol());
+		item.setX(20);
+		item.setY(20);
+		tMap[20][20].addPossession(item);
+		
+		ItemIcon ammo = new ItemIcon(new PistolAmmo());
+		ammo.setX(20);
+		ammo.setY(20);
+		tMap[20][20].addPossession(ammo);
+		
+		ItemIcon armor = new ItemIcon(new Jacket());
+		armor.setX(10);
+		armor.setY(1);
+		tMap[1][10].addPossession(armor);
+		
+		Velociraptor enemy = new Velociraptor(1);
+		enemy.setX(10);
+		enemy.setY(10);
+		enemy.setEnvironment(tMap[10][10]);
+		tMap[10][10].addPossession(enemy);
+		lobbyMap.addActionableActor(enemy);
+		}catch (ItemInitException ex){
+			ex.printStackTrace();
+		}
+		
+		lobbyMap.setMap(tMap);
+		currentMap=lobbyMap;
+	}
+
+	public LevelMap getCurrentMap() {
+		return currentMap;
+	}
+
+	public void setCurrentMap(LevelMap currentMap) {
+		this.currentMap = currentMap;
+	}
+	
+	public AbstractMapObject getMapObjectAtCord(int x, int y){
+		if(currentMap.getMap().length>0 && x>-1 && y>-1 && x<currentMap.getMaxX() && y<currentMap.getMaxY()){
+			
+			return currentMap.getMap()[y][x];
+		}
+		
+		return null;
+	}
+	
+	public int randInt(int range){
+		return gen.nextInt(range);
+	}
+	
+	public static int distanceSqr(int x1, int y1,int x2,int y2){
+		
+		int dX = x2 - x1;
+		int dY = y2 - y1;
+		
+		int dXSqr = dX*dX;
+		int dYSqr = dY*dY;
+		
+		return dXSqr+dYSqr;
+	}
+
+	
+	
+	
+	
+	
+}

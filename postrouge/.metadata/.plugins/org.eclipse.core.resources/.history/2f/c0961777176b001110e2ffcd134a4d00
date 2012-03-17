@@ -1,0 +1,43 @@
+package main.java;
+
+import main.java.util.InputUtil;
+import main.java.util.StateUtil;
+import main.java.util.TerminalUtil;
+
+public class Main {
+	
+    /**
+     * TerminalInterface used by the example
+     */
+
+	
+	public static void main(String[] args) {
+		init();
+		loop();
+		quit();
+	}
+	
+	private static void init(){
+		TerminalUtil.initTerm("Rogues W", 25, 80);
+	}
+	
+	private static void loop(){
+		Boolean quit = false;
+
+		 while (!quit) {
+			 InputUtil.InputState inState;
+			 	
+			 TerminalUtil.getTerm().puts(">"); //$NON-NLS-1$
+			 TerminalUtil.getTerm().refresh();
+			 
+	         inState = InputUtil.getInput();
+	         quit = StateUtil.processInput(inState);
+	            
+		 }
+	}
+	
+	private static void quit(){
+		TerminalUtil.quit();
+	}
+
+}

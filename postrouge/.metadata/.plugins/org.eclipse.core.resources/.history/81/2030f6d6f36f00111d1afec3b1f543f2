@@ -1,0 +1,31 @@
+package main.java.Model.Items.Equipment.Weapons;
+
+import main.java.actors.DisplayObject;
+import main.java.actors.ActorObjects.AbstractActorObject;
+import main.java.actors.ActorObjects.ActorCharacter;
+import main.java.util.PlayerSessionUtil.ItemTarget;
+
+public class Fists extends AbstractWeapon{
+	
+	public Fists(){
+		super();
+		name = "Fists";
+		description = "Knocker Outers";
+		icon = new DisplayObject(0x000000, 0x00ee00, "f");
+		target = ItemTarget.ACTOR;
+		value = 1;
+		range = 1;
+	}
+
+	@Override
+	public String use(AbstractActorObject target) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String attack(ActorCharacter attacker,AbstractActorObject target) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+}

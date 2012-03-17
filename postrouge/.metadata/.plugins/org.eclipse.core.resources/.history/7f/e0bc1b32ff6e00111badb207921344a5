@@ -1,0 +1,25 @@
+package main.java.Model.Items;
+
+import main.java.actions.AbstractAction;
+import main.java.actors.DisplayObject;
+import main.java.actors.ActorObjects.AbstractActorObject;
+import main.java.util.PlayerSessionUtil.ItemTarget;
+import main.java.util.PlayerSessionUtil.ItemType;
+
+public class Jacket extends AbstractItem{
+	
+	public Jacket(){
+		name = "Blue Jacket";
+		description ="keeps you warm at night";
+		icon = new DisplayObject(0x000000, 0x0000ee, "j");
+		type = ItemTarget.SELF;
+	}
+
+	@Override
+	public AbstractAction use(AbstractActorObject user) {
+		
+
+		return null;
+	}
+
+}

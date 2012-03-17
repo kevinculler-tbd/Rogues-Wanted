@@ -1,0 +1,84 @@
+package main.java.actors.ActorObjects;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import main.java.Model.ActorClasses.AbstractActorClass;
+import main.java.Model.Items.Equipment.AbstractEquipment;
+
+public class ActorCharacter extends AbstractActorObject{
+	
+	protected AbstractActorClass actorClass;
+	protected int hp;
+	protected int ac;
+	
+	protected int str = 10;
+	protected int dex = 10;
+	protected int con = 10;
+	
+	protected int intel = 10;
+	protected int wis = 10;
+	protected int cha = 10;
+	
+	protected List<AbstractEquipment> equipedItems;
+
+	public ActorCharacter(){
+		equipedItems = new ArrayList<AbstractEquipment>();
+	}
+	public AbstractActorClass getActorClass() {
+		return actorClass;
+	}
+
+	public void setActorClass(AbstractActorClass actorClass) {
+		this.actorClass = actorClass;
+	}
+	
+	public int getHp() {
+		return hp;
+	}
+	public void setHp(int hp) {
+		this.hp = hp;
+	}
+	
+	public int getAc() {
+		return ac;
+	}
+
+	public void setAc(int ac) {
+		this.ac = ac;
+	}
+	
+	public int getStr() {
+		return str;
+	}
+	public int getDex() {
+		return dex;
+	}
+	public int getCon() {
+		return con;
+	}
+	public int getIntel() {
+		return intel;
+	}
+	public int getWis() {
+		return wis;
+	}
+	public int getCha() {
+		return cha;
+	}
+	
+	public List<AbstractEquipment> getEquipedItems(){
+		return equipedItems;
+	}
+	
+	public void addEquipedItems(AbstractEquipment eq){
+		equipedItems.add(eq);
+	}
+	
+	public void removeEquipedItems(AbstractEquipment eq){
+		equipedItems.remove(eq);
+	}
+	
+	
+
+}

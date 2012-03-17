@@ -1,0 +1,17 @@
+package main.java.actors.ActorObjects;
+
+import main.java.Model.ActorClasses.AbstractActorClass;
+
+public class Character extends AbstractActorObject{
+	
+	protected AbstractActorClass actorClass;
+
+	public AbstractActorClass getActorClass() {
+		return actorClass;
+	}
+
+	public void setActorClass(AbstractActorClass actorClass) {
+		this.actorClass = actorClass;
+	}
+
+}

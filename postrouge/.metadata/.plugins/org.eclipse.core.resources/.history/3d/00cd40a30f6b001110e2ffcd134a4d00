@@ -1,0 +1,62 @@
+package main.java;
+
+import com.googlecode.blacken.swing.SwingTerminal;
+import com.googlecode.blacken.terminal.BlackenKeys;
+import com.googlecode.blacken.terminal.TerminalInterface;
+
+public class Main {
+	
+    /**
+     * TerminalInterface used by the example
+     */
+    protected static TerminalInterface term;
+	
+	public static void main(String[] args) {
+		init();
+		loop();
+		quit();
+	}
+	
+	private static void init(){
+		 if (term == null) {
+	            term = new SwingTerminal();
+	            term.init("Rogues Wanted", 25, 80); //$NON-NLS-1$
+	        } else {
+	           System.console().printf("OMGWTFBBQ");
+	        }
+	}
+	
+	private static void loop(){
+		Boolean quit = false;
+		int ch;
+		 while (!quit) {
+			 	term.puts(">"); //$NON-NLS-1$
+	            term.refresh();
+	            ch = term.getch();
+	            switch(ch) {
+	            case BlackenKeys.KEY_UP:
+	            	break;
+	            case BlackenKeys.KEY_DOWN:
+	            	break;
+	            case BlackenKeys.KEY_LEFT:
+	            	break;
+	            case BlackenKeys.KEY_RIGHT:
+	            	break;
+	            case BlackenKeys.KEY_F01:
+	            	quit = true;
+	            	break;
+	            
+	            default:
+	                term.puts(BlackenKeys.toString(ch)+", "+ch);
+	                
+	                term.puts("\n"); //$NON-NLS-1$
+	            	break;
+	            }
+		 }
+	}
+	
+	private static void quit(){
+		 term.quit();
+	}
+
+}

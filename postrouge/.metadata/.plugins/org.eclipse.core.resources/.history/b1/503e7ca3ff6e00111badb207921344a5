@@ -1,0 +1,14 @@
+package main.java.Model.Items;
+
+import main.java.actions.AbstractAction;
+import main.java.actors.ActorObjects.AbstractActorObject;
+
+public class Ammo extends AbstractItem{
+
+	@Override
+	public AbstractAction use(AbstractActorObject user) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

@@ -1,0 +1,44 @@
+package main.java.util;
+
+import main.java.actors.DisplayObject;
+import main.java.stateEngines.AbstractEngine;
+
+import com.googlecode.blacken.colors.ColorHelper;
+import com.googlecode.blacken.colors.ColorNames;
+import com.googlecode.blacken.colors.ColorPalette;
+
+public class DisplayUtil {
+	public static final int SCREEN_WIDTH = 80;
+	public static final int SCREEN_HEIGHT = 25;
+	private static ColorPalette palette;
+	public static void initColorPalette(ColorPalette p){
+	 if (p == null) {
+         p = new ColorPalette();
+         p.addAll(ColorNames.XTERM_256_COLORS, false);
+         p.putMapping(ColorNames.SVG_COLORS);
+     } 
+     palette = p;
+	}
+	public static void drawScreen(AbstractEngine engine){
+		if(palette == null){
+			initColorPalette(null);
+		}
+
+		DisplayObject[] screen = engine.getDisplayMap(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-5);
+		TerminalUtil.clear();
+		TerminalUtil.setCurBackground(0x000000);
+		for(int i =0; i<screen.length; ++i){
+			 DisplayObject dO = screen[i];
+			 TerminalUtil.setCurBackground(dO.getBackground());   
+			 TerminalUtil.setCurForeground(ColorHelper.makeVisible(dO.getForeground()));
+			 TerminalUtil.output(String.format("%s", dO.getCharacter())); //$NON-NLS-1$
+            
+			 if((i+1)%SCREEN_WIDTH == 0){
+			 TerminalUtil.output("\n");
+			 }
+        }
+		TerminalUtil.setCurBackground(0x000000);
+		TerminalUtil.output(engine.getOutputText());
+	}
+	
+}

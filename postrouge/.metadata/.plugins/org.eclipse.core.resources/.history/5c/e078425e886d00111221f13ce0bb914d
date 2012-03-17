@@ -1,0 +1,11 @@
+package main.java.actors.ActorObjects;
+
+import main.java.Model.ActorClasses.AbstractActorClass;
+import main.java.actors.DisplayObject;
+
+public class TargetingIcon extends AbstractActorObject{
+	public TargetingIcon(AbstractActorClass aC){
+		token = new DisplayObject(0xff0000, 0x000000, " ");
+	}
+
+}

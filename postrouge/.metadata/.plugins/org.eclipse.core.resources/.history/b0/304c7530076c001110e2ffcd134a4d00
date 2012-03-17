@@ -1,0 +1,74 @@
+package main.java.util;
+
+import main.java.Model.LevelMap;
+import main.java.actors.DisplayObject;
+import main.java.actors.ActorObjects.Player;
+import main.java.actors.LevelObjects.AbstractMapObject;
+import main.java.actors.LevelObjects.FloorTile;
+import main.java.actors.LevelObjects.HorizontalWall;
+import main.java.actors.LevelObjects.VerticalWall;
+
+public class PlayerSessionUtil {
+	private Player player;
+	private static PlayerSessionUtil playerSession;
+	
+	private LevelMap lobbyMap;
+	
+	
+	public static PlayerSessionUtil getPlayerSession() {
+		if(playerSession == null){
+			playerSession = new PlayerSessionUtil();
+		}
+		
+		return playerSession;
+	}
+	
+	public PlayerSessionUtil(){
+		makeLobby();
+	}
+
+	public Player getPlayer() {
+		return player;
+	}
+
+	public void setPlayer(Player player) {
+		this.player = player;
+	}
+
+	public LevelMap getLobbyMap() {
+		return lobbyMap;
+	}
+
+	public void setLobbyMap(LevelMap lobbyMap) {
+		this.lobbyMap = lobbyMap;
+	}
+	
+	private void makeLobby(){
+		int size = DisplayUtil.SCREEN_HEIGHT*DisplayUtil.SCREEN_WIDTH;
+		AbstractMapObject[] tMap = new AbstractMapObject[size];
+		
+		for(int y = 0; y<DisplayUtil.SCREEN_HEIGHT; ++y){
+			
+			for(int x = 0; x<DisplayUtil.SCREEN_WIDTH; ++x){
+				if(y==0||y == DisplayUtil.SCREEN_HEIGHT-1 ){
+					tMap[y*DisplayUtil.SCREEN_HEIGHT+x] = new HorizontalWall(x,y);
+				}else{
+					if(x==0 || x==DisplayUtil.SCREEN_WIDTH-1){
+						tMap[y*DisplayUtil.SCREEN_HEIGHT+x] = new VerticalWall(x, y);
+					}else{
+						tMap[y*DisplayUtil.SCREEN_HEIGHT+x] = new FloorTile(x, y);
+					}
+				}
+			}
+		}
+		
+		lobbyMap = new LevelMap();
+		lobbyMap.setMap(tMap);
+	}
+
+	
+	
+	
+	
+	
+}

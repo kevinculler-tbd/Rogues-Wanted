@@ -1,0 +1,19 @@
+package main.java.actors.ActorObjects;
+
+import main.java.Model.Items.AbstractItem;
+import main.java.actors.DisplayObject;
+
+public class ItemIcon extends AbstractActorObject{
+	
+	public ItemIcon(AbstractItem i){
+		super();
+		token = new DisplayObject(0x000000, 0x009900, i.getIcon());
+		inventory.add(i);
+	}
+
+	@Override
+	public String getDiscription() {
+		return inventory.get(0).getDescription();
+	}
+
+}

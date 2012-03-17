@@ -1,0 +1,25 @@
+package main.java.stateEngines;
+
+import main.java.actors.DisplayObject;
+
+public class QuitEngine extends AbstractEngine{
+
+	@Override
+	public AbstractEngine takeStep() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public DisplayObject[] getDisplayMap(int x, int y, int w, int h) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getOutputText() {
+		String ret = "Do you really want to quit? Y/n :";
+		return ret;
+	}
+
+}

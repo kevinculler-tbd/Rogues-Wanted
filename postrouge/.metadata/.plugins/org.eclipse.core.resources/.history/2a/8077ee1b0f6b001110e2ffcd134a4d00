@@ -1,0 +1,15 @@
+package main.java.util;
+
+import com.googlecode.blacken.terminal.TerminalInterface;
+
+public class TerminalUtil {
+    private static TerminalInterface term;
+
+	public static TerminalInterface getTerm() {
+		return term;
+	}
+
+	public static void setTerm(TerminalInterface term) {
+		TerminalUtil.term = term;
+	}
+}

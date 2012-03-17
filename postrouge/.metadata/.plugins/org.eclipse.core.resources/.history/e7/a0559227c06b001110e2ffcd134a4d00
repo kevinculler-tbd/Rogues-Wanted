@@ -1,0 +1,39 @@
+package main.java;
+
+import main.java.stateEngines.AbstractEngine;
+import main.java.stateEngines.IntroEngine;
+import main.java.util.DisplayUtil;
+import main.java.util.TerminalUtil;
+
+public class Main {
+	
+	public static void main(String[] args) {
+		init();
+		loop();
+		quit();
+	}
+	
+	private static void init(){
+		TerminalUtil.initTerm("Rogues W", DisplayUtil.SCREEN_HEIGHT, DisplayUtil.SCREEN_WIDTH);
+	}
+	
+	private static void loop(){
+		Boolean quit = false;
+		AbstractEngine gameEngine = new IntroEngine();
+		
+		 while (!quit) { 
+	         
+	         //make game engine take a step
+	         gameEngine = gameEngine.takeStep();
+	         
+	         //display current game state
+	         DisplayUtil.drawScreen(gameEngine);
+	            
+		 }
+	}
+	
+	private static void quit(){
+		TerminalUtil.quit();
+	}
+
+}

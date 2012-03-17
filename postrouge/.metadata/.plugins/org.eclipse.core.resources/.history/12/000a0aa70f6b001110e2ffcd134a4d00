@@ -1,0 +1,44 @@
+package main.java;
+
+import main.java.util.TerminalUtil;
+
+import com.googlecode.blacken.swing.SwingTerminal;
+import com.googlecode.blacken.terminal.BlackenKeys;
+import com.googlecode.blacken.terminal.TerminalInterface;
+
+public class Main {
+	
+    /**
+     * TerminalInterface used by the example
+     */
+
+	
+	public static void main(String[] args) {
+		init();
+		loop();
+		quit();
+	}
+	
+	private static void init(){
+		TerminalUtil.initTerm("Rogues W", 25, 80);
+	}
+	
+	private static void loop(){
+		Boolean quit = false;
+		int ch;
+		 while (!quit) {
+			 
+			 	
+			 TerminalUtil.getTerm().puts(">"); //$NON-NLS-1$
+			 TerminalUtil.getTerm().refresh();
+	           
+	            quit = StateUtil.processInput(InputState);
+	            
+		 }
+	}
+	
+	private static void quit(){
+		 term.quit();
+	}
+
+}

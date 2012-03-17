@@ -1,0 +1,139 @@
+package main.java.stateEngines;
+
+import java.awt.Rectangle;
+import java.util.List;
+
+import main.java.actions.AbstractAction;
+import main.java.actions.MoveAction;
+import main.java.actors.DisplayObject;
+import main.java.actors.ActorObjects.AbstractActorObject;
+import main.java.actors.ActorObjects.Player;
+import main.java.actors.LevelObjects.AbstractMapObject;
+import main.java.util.DisplayUtil;
+import main.java.util.PlayerSessionUtil;
+
+import com.googlecode.blacken.terminal.BlackenKeys;
+
+public class LevelEngine extends AbstractEngine{
+	enum LevelInputState{UP, DOWN, LEFT, RIGHT, QUIT, MOUSEHELP, NONE};
+	
+	private String actionMessage;
+	private Rectangle camera;
+	
+	public LevelEngine(AbstractEngine lstEng) {
+		super(lstEng);
+		PlayerSessionUtil.getPlayerSession().getPlayer().setX(5);
+		PlayerSessionUtil.getPlayerSession().getPlayer().setY(5);
+		AbstractMapObject aObj = PlayerSessionUtil.getPlayerSession().getMapObjectAtCord(5, 5);
+		aObj.addPossession(PlayerSessionUtil.getPlayerSession().getPlayer());
+		PlayerSessionUtil.getPlayerSession().getPlayer().setEnvironment(aObj);
+		centerCamera();
+	}
+	
+	private void centerCamera(){
+		//fix if to far left
+		
+
+	}
+
+	@Override
+	public DisplayObject[] getDisplayMap() {
+		AbstractMapObject[] map = PlayerSessionUtil.getPlayerSession().getCurrentMap().getMap();
+		int size = DisplayUtil.SCREEN_WIDTH*DisplayUtil.SCREEN_HEIGHT;
+		Player p = PlayerSessionUtil.getPlayerSession().getPlayer();
+		DisplayObject[] drawMap = new DisplayObject[size];
+		
+		
+		for(int i = 0; i<DisplayUtil.SCREEN_HEIGHT; ++i){
+			for(int j = 0; j<DisplayUtil.SCREEN_WIDTH; ++j){
+				//int mapOffset = (p.getCameraY()+i)*PlayerSessionUtil.getPlayerSession().getCurrentMap().getMaxX()+p.getCameraX();
+				int mapOffset = (0+i)*PlayerSessionUtil.getPlayerSession().getCurrentMap().getMaxX()+0;
+
+				 List<AbstractActorObject> tilePossessions = map[mapOffset+j].getPossessions();
+				 for (AbstractActorObject actor: tilePossessions){
+					 drawMap[i*DisplayUtil.SCREEN_WIDTH+j] = actor.getToken();
+					 if(actor.getProperties().get(PlayerSessionUtil.Property.BLOCKING)>0){
+						 break;
+					 }
+				 }
+				 if(drawMap[i*DisplayUtil.SCREEN_WIDTH+j] == null){
+				 drawMap[i*DisplayUtil.SCREEN_WIDTH+j] = map[mapOffset+j].getDisplayObject();
+				 }
+			}
+		}
+
+		
+		return drawMap;
+	}
+
+	@Override
+	public String getOutputText() {
+		return actionMessage;
+	}
+
+	@Override
+	public AbstractEngine takeStep() {
+		LevelInputState state = doInput();
+		actionMessage = null;
+		AbstractEngine ret = this;
+		int curY = PlayerSessionUtil.getPlayerSession().getPlayer().getY();
+		int curX = PlayerSessionUtil.getPlayerSession().getPlayer().getX();
+		AbstractAction action;
+		AbstractMapObject target;
+		switch(state){
+		case QUIT:
+			ret = new QuitEngine(this);
+			break;
+		case UP:
+			action = new MoveAction();
+			target = PlayerSessionUtil.getPlayerSession().getMapObjectAtCord(curX, curY-1);
+			actionMessage = action.doAction(PlayerSessionUtil.getPlayerSession().getPlayer(), target);
+			break;
+		case DOWN:
+			action = new MoveAction();
+			target = PlayerSessionUtil.getPlayerSession().getMapObjectAtCord(curX, curY+1);
+			actionMessage = action.doAction(PlayerSessionUtil.getPlayerSession().getPlayer(), target);
+			break;
+		case LEFT:
+			action = new MoveAction();
+			target = PlayerSessionUtil.getPlayerSession().getMapObjectAtCord(curX-1, curY);
+			actionMessage = action.doAction(PlayerSessionUtil.getPlayerSession().getPlayer(), target);
+			break;
+		case RIGHT:
+			action = new MoveAction();
+			target = PlayerSessionUtil.getPlayerSession().getMapObjectAtCord(curX+1, curY);
+			actionMessage = action.doAction(PlayerSessionUtil.getPlayerSession().getPlayer(), target);
+			break;
+		}
+		
+		return ret;
+	}
+	
+	private LevelInputState doInput(){
+		int ch = getInput();
+		LevelInputState state = LevelInputState.NONE;
+		 switch(ch) {
+         case BlackenKeys.KEY_F01:
+        	 state = LevelInputState.QUIT;
+         	break;
+         case BlackenKeys.KEY_UP:
+        	 state = LevelInputState.UP;
+         	break;
+         case BlackenKeys.KEY_DOWN:
+        	 state = LevelInputState.DOWN;
+         	break;
+         case BlackenKeys.KEY_LEFT:
+        	 state = LevelInputState.LEFT;
+         	break;
+         case BlackenKeys.KEY_RIGHT:
+        	 state = LevelInputState.RIGHT;
+         	break;
+         case BlackenKeys.MOUSE_EVENT:
+        	 state = LevelInputState.MOUSEHELP;
+        	break;
+         }
+		 
+		 return state;
+	}
+
+}

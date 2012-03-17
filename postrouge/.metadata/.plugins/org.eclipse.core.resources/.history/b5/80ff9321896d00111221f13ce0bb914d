@@ -1,0 +1,43 @@
+package main.java.stateEngines;
+
+import main.java.actions.AbstractAction;
+import main.java.actors.DisplayObject;
+import main.java.actors.ActorObjects.AbstractActorObject;
+import main.java.actors.ActorObjects.TargetingIcon;
+
+public class TargetingEngine extends AbstractEngine{
+
+	private AbstractAction targetFor;
+	private AbstractActorObject targetIcon;
+	
+	public TargetingEngine(AbstractEngine lstEng) {
+		super(lstEng);
+		// TODO Auto-generated constructor stub
+	}
+	public TargetingEngine(AbstractEngine lstEng, AbstractAction act) {
+		super(lstEng);
+		targetIcon = new TargetingIcon();
+		targetFor = act;
+		
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public DisplayObject[][] getDisplayMap() {
+		lastEngine.getDisplayMap();
+		return null;
+	}
+
+	@Override
+	public String getOutputText() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public AbstractEngine takeStep() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

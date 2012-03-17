@@ -1,0 +1,14 @@
+package main.java.actions;
+
+import main.java.actors.ActorObjects.AbstractActorObject;
+import main.java.actors.LevelObjects.AbstractMapObject;
+
+public class LookAction extends AbstractAction{
+
+	@Override
+	public String doAction(AbstractActorObject actor, AbstractMapObject target) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

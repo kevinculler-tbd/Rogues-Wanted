@@ -1,0 +1,172 @@
+package main.java.stateEngines;
+
+import java.util.List;
+
+import main.java.actions.AbstractAction;
+import main.java.actions.LookAction;
+import main.java.actions.MoveAction;
+import main.java.actors.DisplayObject;
+import main.java.actors.ActorObjects.AbstractActorObject;
+import main.java.actors.ActorObjects.Player;
+import main.java.actors.ActorObjects.TargetingIcon;
+import main.java.actors.LevelObjects.AbstractMapObject;
+import main.java.util.DisplayUtil;
+import main.java.util.PlayerSessionUtil;
+
+import com.googlecode.blacken.terminal.BlackenKeys;
+
+public class TargetingEngine extends AbstractEngine{
+	
+	enum TargetingInputState{UP, DOWN, LEFT, RIGHT, QUIT, BACK, CONFIRM, NONE};
+
+	private AbstractAction targetForAction;
+	private AbstractActorObject targetIcon;
+	private String actionMessage;
+	
+	public TargetingEngine(AbstractEngine lstEng) {
+		super(lstEng);
+		// TODO Auto-generated constructor stub
+	}
+	public TargetingEngine(AbstractEngine lstEng, AbstractAction act) {
+		super(lstEng);
+		targetIcon = new TargetingIcon();
+		targetForAction = act;
+		Player p = PlayerSessionUtil.getPlayerSession().getPlayer();
+		
+		targetIcon.setX(p.getX());
+		targetIcon.setY(p.getY());
+		AbstractMapObject aObj = p.getEnvironment();
+		aObj.addPossession(targetIcon);
+		targetIcon.setEnvironment(aObj);
+		
+		actionMessage = targetForAction.doAction(targetIcon, aObj);
+		
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public DisplayObject[][] getDisplayMap() {
+		AbstractMapObject[][] map = PlayerSessionUtil.getPlayerSession().getCurrentMap().getMap();
+		AbstractActorObject actor = targetIcon;
+		DisplayObject[][] drawMap = new DisplayObject[DisplayUtil.SCREEN_HEIGHT][DisplayUtil.SCREEN_WIDTH];
+		int orgX = actor.getX()-(DisplayUtil.SCREEN_WIDTH/2);
+		int orgY = actor.getY()-(DisplayUtil.SCREEN_HEIGHT/2);
+		
+		
+		for(int y = 0; y<DisplayUtil.SCREEN_HEIGHT; ++y){
+			for(int x = 0; x<DisplayUtil.SCREEN_WIDTH; ++x){
+				if(orgX+x>=0 &&
+				   orgY+y>=0 &&
+				   orgX+x<PlayerSessionUtil.getPlayerSession().getCurrentMap().getMaxX() &&
+				   orgY+y<PlayerSessionUtil.getPlayerSession().getCurrentMap().getMaxY()){
+					
+					 List<AbstractActorObject> tilePossessions = map[orgY+y][orgX+x].getPossessions();
+					 for (AbstractActorObject possession: tilePossessions){
+						 if(possession != targetIcon)
+						 {
+							 drawMap[y][x] = possession.getToken();
+							 if(possession.getProperties().get(PlayerSessionUtil.Property.BLOCKING)!=null && possession.getProperties().get(PlayerSessionUtil.Property.BLOCKING)>0){
+								 break;
+							 }
+						 }else{
+								 drawMap[y][x]= new DisplayObject(targetIcon.getToken().getBackground(), targetIcon.getToken().getForeground(), possession.getToken().getCharacter());
+						 }
+					 }
+					 if(drawMap[y][x] == null){
+					 drawMap[y][x] = map[orgY+y][orgX+x].getDisplayObject();
+					 }
+				}
+			}
+		}
+		return drawMap;
+	}
+
+	@Override
+	public String getOutputText() {
+		return actionMessage;
+	}
+
+	@Override
+	public AbstractEngine takeStep() {
+		TargetingInputState state = doInput();
+	
+		AbstractEngine ret = this;
+		int curY = targetIcon.getY();
+		int curX = targetIcon.getX();
+		AbstractMapObject target;
+		String tMessage;
+		switch(state){
+		case QUIT:
+			ret = new QuitEngine(this);
+			break;
+		case UP:
+			target = PlayerSessionUtil.getPlayerSession().getMapObjectAtCord(curX, curY-1);
+			tMessage = targetForAction.doAction(targetIcon, target);
+			if(tMessage != null){
+				actionMessage = tMessage;
+			}			
+			break;
+		case DOWN:
+			target = PlayerSessionUtil.getPlayerSession().getMapObjectAtCord(curX, curY+1);
+			tMessage = targetForAction.doAction(targetIcon, target);
+			if(tMessage != null){
+				actionMessage = tMessage;
+			}
+			break;
+		case LEFT:
+			target = PlayerSessionUtil.getPlayerSession().getMapObjectAtCord(curX-1, curY);
+			tMessage = targetForAction.doAction(targetIcon, target);
+			if(tMessage != null){
+				actionMessage = tMessage;
+			}
+			break;
+		case RIGHT:
+			target = PlayerSessionUtil.getPlayerSession().getMapObjectAtCord(curX+1, curY);
+			tMessage = targetForAction.doAction(targetIcon, target);
+			if(tMessage != null){
+				actionMessage = tMessage;
+			}
+			break;
+		case BACK:
+			ret = lastEngine;
+			targetIcon.getEnvironment().removePossession(targetIcon);
+			break;
+		case CONFIRM:
+			ret = lastEngine;
+			targetIcon.getEnvironment().removePossession(targetIcon);
+			break;
+		}
+		
+		return ret;
+	}
+	
+	private TargetingInputState doInput(){
+		int ch = getInput();
+		TargetingInputState state = TargetingInputState.NONE;
+		 switch(ch) {
+         case BlackenKeys.KEY_F01:
+        	 state = TargetingInputState.QUIT;
+         	break;
+         case BlackenKeys.KEY_UP:
+        	 state = TargetingInputState.UP;
+         	break;
+         case BlackenKeys.KEY_DOWN:
+        	 state = TargetingInputState.DOWN;
+         	break;
+         case BlackenKeys.KEY_LEFT:
+        	 state = TargetingInputState.LEFT;
+         	break;
+         case BlackenKeys.KEY_RIGHT:
+        	 state = TargetingInputState.RIGHT;
+         	break;
+         case BlackenKeys.KEY_ESCAPE:
+        	 state = TargetingInputState.BACK;
+        	 break;
+         case BlackenKeys.KEY_ENTER:
+        	 state = TargetingInputState.CONFIRM;
+        	 break;
+        	 
+		 }
+		 return state;
+	}
+}

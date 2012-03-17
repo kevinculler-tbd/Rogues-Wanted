@@ -1,0 +1,44 @@
+package main.java.Model.Items;
+
+import main.java.actions.AbstractAction;
+import main.java.actors.ActorObjects.AbstractActorObject;
+
+
+public abstract class AbstractItem {
+	
+	private int id;
+	
+	public abstract AbstractAction use(AbstractActorObject user);
+	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	@Override
+	public boolean equals(Object obj){
+		if (this == obj){
+		       return true;
+		}
+	    if (obj == null){
+	        return false;
+	    }
+	    if (getClass() != obj.getClass()){
+	        return false;
+	    }
+	    final AbstractItem other = (AbstractItem)obj;
+	    if(other.getId() == id){
+	    	return true;
+	    }
+		return false;
+	}
+	
+	@Override
+	public int hashCode() {
+	    return id;
+	}
+
+}

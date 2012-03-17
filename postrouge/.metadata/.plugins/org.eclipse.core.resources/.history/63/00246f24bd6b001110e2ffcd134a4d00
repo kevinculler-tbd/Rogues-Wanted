@@ -1,0 +1,14 @@
+package main.java.stateEngines;
+
+import main.java.actors.DisplayObject;
+
+public abstract class AbstractEngine {
+
+	public abstract DisplayObject[] getDisplayMap(int x, int y, int w, int h);
+	
+	public abstract String getOutputText();
+	
+	public abstract AbstractEngine takeStep();
+	
+	public abstract int getInput();
+}

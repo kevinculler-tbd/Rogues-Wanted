@@ -1,0 +1,55 @@
+package main.java.stateEngines;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import main.java.Model.Items.AbstractItem;
+import main.java.actors.DisplayObject;
+import main.java.actors.ActorObjects.AbstractActorObject;
+import main.java.actors.ActorObjects.ItemIcon;
+import main.java.actors.LevelObjects.AbstractMapObject;
+
+public class SelectItemEngine extends AbstractEngine {
+
+	private List<AbstractItem> items;
+	public SelectItemEngine(AbstractEngine lstEng) {
+		super(lstEng);
+		// TODO Auto-generated constructor stub
+	}
+	
+	public SelectItemEngine(AbstractEngine lstEng, AbstractMapObject target) {
+		super(lstEng);
+		items = new ArrayList<AbstractItem>();
+		char currentChar = 'A';
+		for(AbstractActorObject actor: target.getPossessions()){
+			if(actor.getClass().isInstance(ItemIcon.class)){
+				AbstractItem tItem =((ItemIcon)actor).getInventory().get(0);
+				tItem.setSelectionKey(currentChar);
+				++currentChar;
+				items.add(tItem);
+			}
+		}
+	}
+
+	@Override
+	public DisplayObject[][] getDisplayMap() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getOutputText() {
+		String ret = "Select an item: \n";
+		for (AbstractItem item:items){
+			ret = ret + item.getSelectionKey()+". "+item.getName()+" - "+item.getDescription()+"\n";
+		}
+		return ret;
+	}
+
+	@Override
+	public AbstractEngine takeStep() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

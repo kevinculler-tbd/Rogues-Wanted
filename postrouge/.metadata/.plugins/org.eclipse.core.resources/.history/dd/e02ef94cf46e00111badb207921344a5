@@ -1,0 +1,32 @@
+package main.java.actions;
+
+import main.java.actors.ActorObjects.AbstractActorObject;
+import main.java.actors.LevelObjects.AbstractMapObject;
+
+public class PickupAction extends AbstractAction{
+
+	@Override
+	public String doAction(AbstractActorObject actor, AbstractMapObject target) {
+		String ret = null;
+		boolean selfRemoved = false;
+		if(target.getPossessions().contains(actor)){
+			target.removePossession(actor);
+			selfRemoved = true;
+		}
+		if(target.getPossessions().size()==1){
+			AbstractActorObject item = target.getPossessions().get(0);
+			actor.addInventoryItem(item.getInventory().get(0));
+			target.removePossession(item);
+			ret ="You picked up :" + target.getPossessions().get(0).getDiscription();	
+		}else if (target.getPossessions().size()==0){
+			ret =  "There is nothing here";
+		}
+		
+		if(selfRemoved){
+			target.addPossession(actor);
+		}
+		
+		return ret;
+	}
+
+}

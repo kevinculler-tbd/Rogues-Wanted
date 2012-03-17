@@ -1,0 +1,92 @@
+package main.java.Model.Items;
+
+import main.java.actions.AbstractAction;
+import main.java.actors.DisplayObject;
+import main.java.actors.ActorObjects.AbstractActorObject;
+import main.java.util.PlayerSessionUtil.ItemTarget;
+
+
+public abstract class AbstractItem {
+	
+	protected int id;
+	protected String description;
+	protected char selectionKey;
+	protected DisplayObject icon;
+	protected ItemTarget type;
+	protected String name;
+
+	public abstract AbstractAction use(AbstractActorObject target);
+	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	@Override
+	public boolean equals(Object obj){
+		if (this == obj){
+		       return true;
+		}
+	    if (obj == null){
+	        return false;
+	    }
+	    if (getClass() != obj.getClass()){
+	        return false;
+	    }
+	    final AbstractItem other = (AbstractItem)obj;
+	    if(other.getId() == id){
+	    	return true;
+	    }
+		return false;
+	}
+	
+	@Override
+	public int hashCode() {
+	    return id;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public char getSelectionKey() {
+		return selectionKey;
+	}
+
+	public void setSelectionKey(char selectionKey) {
+		this.selectionKey = selectionKey;
+	}
+	
+	public DisplayObject getIcon() {
+		return icon;
+	}
+
+	public void setIcon(DisplayObject icon) {
+		this.icon = icon;
+	}
+	
+	public ItemTarget getType() {
+		return type;
+	}
+
+	public void setType(ItemTarget type) {
+		this.type = type;
+	}
+	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
+}

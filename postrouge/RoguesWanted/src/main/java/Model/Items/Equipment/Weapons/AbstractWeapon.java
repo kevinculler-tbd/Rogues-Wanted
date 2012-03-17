@@ -1,0 +1,17 @@
+package main.java.Model.Items.Equipment.Weapons;
+
+import main.java.Model.Items.Equipment.AbstractEquipment;
+import main.java.actors.ActorObjects.AbstractActorObject;
+import main.java.actors.ActorObjects.ActorCharacter;
+
+public abstract class AbstractWeapon extends AbstractEquipment{
+
+	@Override
+	public String use(AbstractActorObject target) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	public abstract String attack(ActorCharacter attacker, ActorCharacter target);
+
+}

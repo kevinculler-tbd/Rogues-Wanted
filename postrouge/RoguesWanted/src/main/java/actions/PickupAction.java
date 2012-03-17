@@ -1,0 +1,41 @@
+package main.java.actions;
+
+import main.java.Model.Items.AbstractItem;
+import main.java.actors.ActorObjects.AbstractActorObject;
+import main.java.actors.LevelObjects.AbstractMapObject;
+
+public class PickupAction extends AbstractAction{
+
+	@Override
+	public String doAction(AbstractActorObject actor, AbstractMapObject target) {
+		String ret = null;
+		boolean selfRemoved = false;
+		if(target.getPossessions().contains(actor)){
+			target.removePossession(actor);
+			selfRemoved = true;
+		}
+		if(target.getPossessions().size()==1){
+			AbstractActorObject item = target.getPossessions().get(0);
+			AbstractItem i = item.getInventory().get(0);
+			i.setSelectionKey((char)(actor.getInventory().size()+65));
+			actor.addInventoryItem(i);
+			ret ="You picked up: " + target.getPossessions().get(0).getName();
+			target.removePossession(item);
+		}else if (target.getPossessions().size()==0){
+			ret =  "There is nothing here";
+		}
+		
+		if(selfRemoved){
+			target.addPossession(actor);
+		}
+		
+		return ret;
+	}
+
+	@Override
+	public String doConfirm(AbstractActorObject actor, AbstractMapObject target) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}
